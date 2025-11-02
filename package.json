@@ -1,7 +1,7 @@
 {
   "name": "spotlight-headless-starter",
   "private": true,
-  "version": "0.3.1",
+  "version": "0.3.2",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -23,6 +23,7 @@
     "postcss": "8.4.38",
     "tailwindcss": "3.4.13",
     "eslint": "8.57.0",
-    "eslint-config-next": "14.2.5"
+    "eslint-config-next": "14.2.5",
+    "@types/xml2js": "0.4.14"
   }
 }

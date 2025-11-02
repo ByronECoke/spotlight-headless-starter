@@ -1,0 +1,7 @@
+Merge these into your existing package.json:
+
+{
+  "devDependencies": {
+    "@types/xml2js": "0.4.14"
+  }
+}
