@@ -1,0 +1,96 @@
+{
+  "collections": [
+    {
+      "collection": "rss_episodes",
+      "meta": {
+        "icon": "rss_feed"
+      },
+      "schema": {
+        "name": "rss_episodes"
+      }
+    },
+    {
+      "collection": "rss_snippets",
+      "meta": {
+        "icon": "video_library"
+      },
+      "schema": {
+        "name": "rss_snippets"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "collection": "rss_episodes",
+      "field": "title",
+      "type": "string",
+      "schema": {
+        "is_nullable": false
+      }
+    },
+    {
+      "collection": "rss_episodes",
+      "field": "link",
+      "type": "string",
+      "schema": {
+        "is_nullable": false
+      }
+    },
+    {
+      "collection": "rss_episodes",
+      "field": "pubDate",
+      "type": "string",
+      "schema": {
+        "is_nullable": true
+      }
+    },
+    {
+      "collection": "rss_episodes",
+      "field": "summary",
+      "type": "text",
+      "schema": {
+        "is_nullable": true
+      }
+    },
+    {
+      "collection": "rss_snippets",
+      "field": "title",
+      "type": "string",
+      "schema": {
+        "is_nullable": false
+      }
+    },
+    {
+      "collection": "rss_snippets",
+      "field": "videoId",
+      "type": "string",
+      "schema": {
+        "is_nullable": false
+      }
+    },
+    {
+      "collection": "rss_snippets",
+      "field": "link",
+      "type": "string",
+      "schema": {
+        "is_nullable": false
+      }
+    },
+    {
+      "collection": "rss_snippets",
+      "field": "published",
+      "type": "string",
+      "schema": {
+        "is_nullable": true
+      }
+    },
+    {
+      "collection": "rss_snippets",
+      "field": "thumbnail",
+      "type": "string",
+      "schema": {
+        "is_nullable": true
+      }
+    }
+  ]
+}
