@@ -1,7 +1,7 @@
 {
   "name": "spotlight-headless-starter",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.3.1",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -12,9 +12,6 @@
     "next": "14.2.5",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "@next/mdx": "14.2.5",
-    "next-seo": "6.5.0",
-    "clsx": "2.1.1",
     "xml2js": "0.6.2"
   },
   "devDependencies": {

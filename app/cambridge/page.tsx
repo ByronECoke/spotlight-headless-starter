@@ -1,0 +1,1 @@
+export default function Page(){return (<div><h1>Spotlight on Local – Cambridge</h1><p>Coming soon.</p></div>)}

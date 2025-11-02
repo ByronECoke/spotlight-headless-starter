@@ -1,2 +1,1 @@
-# Spotlight Headless Starter v3
-See DEPLOY.md for full deployment instructions.
+Build fix v3.1 — CSS path corrected; MDX removed; city/service pages now TSX.
