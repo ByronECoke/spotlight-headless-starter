@@ -1,24 +1,21 @@
-import { getAllCities, getBusinessesByCityTopic } from "@/lib/queries";
-import PageShell from "@/components/PageShell";
+import { PageShell } from '@/components/PageShell';
+import { getBusinessesByCityAndTopic, type BusinessLite } from '@/lib/directus';
 
-export const revalidate = 60;
-
-export async function generateStaticParams() {
-  // Prebuild only city routes; topic pages will build on-demand
-  const cities = await getAllCities();
-  return cities.flatMap((c) => [] as any); // keep params empty → on-demand ISR
-}
-
-export default async function TopicPage({
+export default async function Page({
   params,
 }: {
   params: { city: string; topic: string };
 }) {
-  const businesses = await getBusinessesByCityTopic(params.city, params.topic);
+  // Fetch businesses from Directus based on city + topic
+  const businesses: BusinessLite[] = await getBusinessesByCityAndTopic(
+    params.city,
+    params.topic
+  );
+
   return (
     <PageShell title={`${params.city} / ${params.topic}`}>
       <ul>
-        {businesses.map((b: any) => (
+        {businesses.map((b) => (
           <li key={b.slug}>
             <a href={`/${params.city}/places/${b.slug}`}>{b.name}</a>
           </li>
