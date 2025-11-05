@@ -57,3 +57,27 @@ export async function getSiteConfig() {
     return null;
   }
 }
+
+// Types for City Topics
+export type CityTopic = {
+  id: string;
+  topic: {
+    slug: string;
+    // depending on your table it might be "title" or "name"
+    title?: string | null;
+    name?: string | null;
+  };
+};
+
+// Fetch topics for a given city (joins city_topics → core_topics)
+export async function getCityTopics(citySlug: string): Promise<CityTopic[]> {
+  return directus.request(
+    readItems('city_topics', {
+      filter: { city: { slug: { _eq: citySlug } } },
+      limit: 100,
+      // ask Directus for the nested fields you use in the UI
+      fields: ['id', 'topic.slug', 'topic.title', 'topic.name'],
+      sort: ['topic.title', 'topic.name'],
+    })
+  ) as unknown as CityTopic[];
+}
