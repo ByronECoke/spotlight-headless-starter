@@ -2,6 +2,13 @@
 import { directus } from '@/lib/directus';
 import { readItems } from '@directus/sdk';
 
+// re-export/get shim so older pages keep working
+import { getCityTopics as _getCityTopics, type CityTopic } from '@/lib/directus';
+export type { CityTopic } from '@/lib/directus';
+export async function getTopicsForCity(citySlug: string): Promise<CityTopic[]> {
+  return _getCityTopics(citySlug);
+}
+
 /** City types & queries */
 export type City = {
   slug: string;
