@@ -1,4 +1,4 @@
-import { PageShell } from '@/components/PageShell';
+import PageShell from '@/components/PageShell';
 import { getBusinessesByCityAndTopic, type BusinessLite } from '@/lib/directus';
 
 export default async function Page({
@@ -6,7 +6,6 @@ export default async function Page({
 }: {
   params: { city: string; topic: string };
 }) {
-  // Fetch businesses from Directus based on city + topic
   const businesses: BusinessLite[] = await getBusinessesByCityAndTopic(
     params.city,
     params.topic
