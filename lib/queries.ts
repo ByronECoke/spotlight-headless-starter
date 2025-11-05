@@ -34,12 +34,12 @@ export async function getCityBySlug(slug: string): Promise<City | null> {
 /** Article types & queries */
 export type Article = {
   slug: string;
-  // Depending on your schema, title may be 'title' or 'name'
   title?: string | null;
   name?: string | null;
   summary?: string | null;
-  body?: string | null;     // if your collection uses 'body'
-  content?: string | null;  // or 'content'
+  body?: string | null;       // html/markdown field (optional)
+  content?: string | null;    // alternate body field (optional)
+  seo_title?: string | null;  // <-- add this
   hero_image?: any;
 };
 
@@ -55,6 +55,7 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
         'summary',
         'body',
         'content',
+        'seo_title',     // <-- make sure we fetch it
         'hero_image.*',
       ],
     })
