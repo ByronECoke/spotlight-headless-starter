@@ -1,0 +1,12 @@
+# Node / Next.js
+node_modules/
+.next/
+.vercel/
+
+# Env & local
+.env*
+*.local
+
+# OS junk
+.DS_Store
+Thumbs.db
