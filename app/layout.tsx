@@ -4,8 +4,8 @@ import { ReactNode } from 'react';
 import { directus } from '@/lib/directus';
 import { readItems } from '@directus/sdk';
 
-export const runtime = 'nodejs';           // ✅ avoid Edge for the SDK
-export const dynamic = 'force-dynamic';    // ✅ do not pre-render at build
+export const runtime = 'nodejs';         // one definition only
+export const dynamic = 'force-dynamic';  // one definition only
 
 export const metadata = {
   title: 'Spotlight on Local – Media Network',
@@ -18,18 +18,16 @@ async function getCities() {
       readItems('cities' as any, {
         fields: ['slug', 'name'],
         sort: ['name'],
-        filter: { status: { _eq: 'published' } }, // ✅ avoid 401/403 if you gate drafts
+        filter: { status: { _eq: 'published' } },
         limit: 100,
       })
     );
-    // Defensive: make sure we always return an array of {slug,name}
     if (Array.isArray(rows) && rows.length) {
       return rows.map((r: any) => ({ slug: r.slug, name: r.name }));
     }
   } catch {
-    // swallow any Directus build/runtime error
+    // swallow any Directus error
   }
-  // ✅ guaranteed fallback so build never breaks
   return [
     { slug: 'bristol', name: 'Bristol' },
     { slug: 'cheltenham', name: 'Cheltenham' },
@@ -37,8 +35,6 @@ async function getCities() {
   ];
 }
 
-export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const cities = await getCities();
 
