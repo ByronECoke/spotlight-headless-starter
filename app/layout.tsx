@@ -1,23 +1,58 @@
-import './globals.css'
-import { ReactNode } from 'react'
+// app/layout.tsx
+import './globals.css';
+import { ReactNode } from 'react';
+import { directus } from '@/lib/directus';
+import { readItems } from '@directus/sdk';
+
+export const runtime = 'nodejs';           // ✅ avoid Edge for the SDK
+export const dynamic = 'force-dynamic';    // ✅ do not pre-render at build
 
 export const metadata = {
   title: 'Spotlight on Local – Media Network',
-  description: 'Local media & podcast features that turn attention into bookings.'
+  description: 'Local media & podcast features that turn attention into bookings.',
+};
+
+async function getCities() {
+  try {
+    const rows = await directus.request(
+      readItems('cities' as any, {
+        fields: ['slug', 'name'],
+        sort: ['name'],
+        filter: { status: { _eq: 'published' } }, // ✅ avoid 401/403 if you gate drafts
+        limit: 100,
+      })
+    );
+    // Defensive: make sure we always return an array of {slug,name}
+    if (Array.isArray(rows) && rows.length) {
+      return rows.map((r: any) => ({ slug: r.slug, name: r.name }));
+    }
+  } catch {
+    // swallow any Directus build/runtime error
+  }
+  // ✅ guaranteed fallback so build never breaks
+  return [
+    { slug: 'bristol', name: 'Bristol' },
+    { slug: 'cheltenham', name: 'Cheltenham' },
+    { slug: 'cambridge', name: 'Cambridge' },
+  ];
 }
 
-export default function RootLayout({ children }: { children: ReactNode }){
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const cities = await getCities();
+
   return (
     <html lang="en">
       <body>
         <header className="border-b">
           <div className="container py-4 flex items-center gap-4">
             <a href="/" className="font-bold">Spotlight on Local</a>
-            <nav className="text-sm text-gray-600">
-              <a href="/bristol" className="mr-4">Bristol</a>
-              <a href="/cheltenham" className="mr-4">Cheltenham</a>
-              <a href="/cambridge" className="mr-4">Cambridge</a>
-              <a href="/episodes" className="mr-4">Episodes</a>
+            <nav className="text-sm text-gray-600 flex gap-4">
+              {cities.map((c) => (
+                <a key={c.slug} href={`/${c.slug}`}>{c.name}</a>
+              ))}
+              <a href="/episodes">Episodes</a>
               <a href="/snippets">Snippets</a>
             </nav>
           </div>
@@ -30,5 +65,5 @@ export default function RootLayout({ children }: { children: ReactNode }){
         </footer>
       </body>
     </html>
-  )
+  );
 }

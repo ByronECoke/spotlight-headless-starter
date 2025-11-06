@@ -1,18 +1,14 @@
 // lib/directus.ts
 import {
   createDirectus,
-  rest,
-  staticToken,
-  readItems,
+  readItems, 
   readSingleton,
+  rest,
 } from '@directus/sdk';
 
 const DIRECTUS_URL = process.env.DIRECTUS_URL!;
-const DIRECTUS_TOKEN_PUBLIC = process.env.DIRECTUS_TOKEN_PUBLIC!;
 
-export const directus = createDirectus(DIRECTUS_URL)
-  .with(rest())
-  .with(staticToken(DIRECTUS_TOKEN_PUBLIC));
+export const directus = createDirectus(DIRECTUS_URL).with(rest());
 
 /** Types */
 export type CityTopic = {
